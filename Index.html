@@ -274,7 +274,7 @@
     }
 
     // ============================================================
-    // PARSEO DE CSV
+    // PARSEO DE CSV (NO convierte 'fecha' a número)
     // ============================================================
     function parseCSV(text) {
         if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
@@ -297,29 +297,29 @@
             const obj = {};
             headers.forEach((h, idx) => { obj[h] = values[idx] || ''; });
             for (const key in obj) {
-    const val = obj[key];
-    // ⚠️ NO convertir 'fecha' a número (debe quedar como string para comparaciones)
-    if (key === 'fecha') continue;
-    if (val !== '' && !isNaN(val) && val.trim() !== '') obj[key] = parseFloat(val);
-}
+                const val = obj[key];
+                // ⚠️ NO convertir 'fecha' a número (debe quedar como string)
+                if (key === 'fecha') continue;
+                if (val !== '' && !isNaN(val) && val.trim() !== '') obj[key] = parseFloat(val);
+            }
             result.push(obj);
         }
         return result;
     }
 
     // ============================================================
-    // PROCESAMIENTO
+    // PROCESAMIENTO (normaliza fecha a string)
     // ============================================================
     function procesarDatosCompletos() {
         const rotasPorMaquinaFecha = {};
         roturasData.forEach(r => {
             if (r.tipo_rotura === "Hilos sueltos" || r.tipo_rotura === "Hilo debil") return;
-            const key = `${r.fecha}|${r.maquina}`;
+            const key = `${String(r.fecha)}|${r.maquina}`;
             rotasPorMaquinaFecha[key] = (rotasPorMaquinaFecha[key] || 0) + (r.cantidad || 0);
         });
         const filasPorMaquinaFecha = {};
         produccionRaw.forEach(p => {
-            const key = `${p.fecha}|${p.maquina}`;
+            const key = `${String(p.fecha)}|${p.maquina}`;
             filasPorMaquinaFecha[key] = (filasPorMaquinaFecha[key] || 0) + 1;
         });
         const rotasProrrateadas = {};
@@ -327,13 +327,21 @@
             rotasProrrateadas[key] = (rotasPorMaquinaFecha[key] || 0) / filasPorMaquinaFecha[key];
         }
         produccionData = produccionRaw.map(p => {
-            const key = `${p.fecha}|${p.maquina}`;
+            const key = `${String(p.fecha)}|${p.maquina}`;
             const rotasFila = rotasProrrateadas[key] || 0;
             const metrosProd = p.metros_producidos || 0;
             const hilo = p.hilo || 0;
             const irmm = (metrosProd * hilo) > 0 ? (1000000 * rotasFila) / (metrosProd * hilo) : 0;
             const duracion = calcularDuracionMinutos(p.inicio, p.hora_inicio, p.fecha_fin, p.fecha_fin_hora);
-            return { ...p, metros_producidos: metrosProd, hilo: hilo, roturas: rotasFila, IRMM: irmm, duracion_minutos: duracion };
+            return {
+                ...p,
+                fecha: String(p.fecha),   // 👈 FORZAR STRING
+                metros_producidos: metrosProd,
+                hilo: hilo,
+                roturas: rotasFila,
+                IRMM: irmm,
+                duracion_minutos: duracion
+            };
         });
     }
 
@@ -341,7 +349,7 @@
     // RENDER: MÁQUINA
     // ============================================================
     function renderMaquina(fecha) {
-        const data = produccionData.filter(d => d.fecha === fecha);
+        const data = produccionData.filter(d => String(d.fecha) === String(fecha));
         const grid = document.getElementById('maquinaGrid');
         if (data.length === 0) {
             grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#6a8aa5;">Sin datos de producción para esta fecha</div>`;
@@ -425,7 +433,7 @@
     // RENDER: OPERADOR
     // ============================================================
     function renderOperador(fecha) {
-        const data = produccionData.filter(d => d.fecha === fecha);
+        const data = produccionData.filter(d => String(d.fecha) === String(fecha));
         const tbody = document.getElementById('tbodyOperador');
         if (data.length === 0) {
             tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:30px;color:#6a8aa5;">Sin datos de producción para esta fecha</td></tr>`;
@@ -509,7 +517,7 @@
     // RENDER: TÍTULO
     // ============================================================
     function renderTitulo(fecha) {
-        const data = produccionData.filter(d => d.fecha === fecha);
+        const data = produccionData.filter(d => String(d.fecha) === String(fecha));
         const tbody = document.getElementById('tbodyTitulo');
         if (data.length === 0) {
             tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:30px;color:#6a8aa5;">Sin datos de producción para esta fecha</td></tr>`;
@@ -589,10 +597,10 @@
     }
 
     // ============================================================
-    // RENDER: ROTURAS
+    // RENDER: ROTURAS (comparación String)
     // ============================================================
     function renderRoturas(fecha) {
-        const data = roturasData.filter(d => d.fecha === fecha);
+        const data = roturasData.filter(d => String(d.fecha) === String(fecha));
         const grid = document.getElementById('roturasGrid');
         if (data.length === 0) {
             grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:#6a8aa5;">Sin datos de roturas para esta fecha</div>`;
@@ -646,7 +654,7 @@
     function actualizarDashboard(fecha) {
         if (!fecha) return;
         document.getElementById('fechaMostrada').textContent = formatearFecha(fecha);
-        document.getElementById('totalRegistros').textContent = produccionData.filter(d => d.fecha === fecha).length;
+        document.getElementById('totalRegistros').textContent = produccionData.filter(d => String(d.fecha) === String(fecha)).length;
         renderMaquina(fecha);
         renderOperador(fecha);
         renderTitulo(fecha);
