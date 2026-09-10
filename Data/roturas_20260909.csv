@@ -1,0 +1,6 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 03,Interferencia entre antibalon,8,20260909
+URDIDORA # 03,Interferencia entre hilos,6,20260909
+URDIDORA # 03,Moña,4,20260909
+URDIDORA # 03,Interferencia manipulacion,1,20260909
+URDIDORA # 03,Hilos sueltos,8,20260909
