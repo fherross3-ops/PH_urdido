@@ -297,9 +297,11 @@
             const obj = {};
             headers.forEach((h, idx) => { obj[h] = values[idx] || ''; });
             for (const key in obj) {
-                const val = obj[key];
-                if (val !== '' && !isNaN(val) && val.trim() !== '') obj[key] = parseFloat(val);
-            }
+    const val = obj[key];
+    // ⚠️ NO convertir 'fecha' a número (debe quedar como string para comparaciones)
+    if (key === 'fecha') continue;
+    if (val !== '' && !isNaN(val) && val.trim() !== '') obj[key] = parseFloat(val);
+}
             result.push(obj);
         }
         return result;
