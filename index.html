@@ -513,7 +513,35 @@
             .dashboard { padding: 4px; }
             .kpi-global { grid-template-columns: 1fr 1fr; }
             .kpi-global-8 { grid-template-columns: 1fr 1fr; }
+
+
         }
+
+
+/* ============================================ */
+/* MÓVIL: permitir scroll vertical              */
+/* ============================================ */
+@media (max-width: 900px) {
+    body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        align-items: flex-start !important;
+        padding: 8px !important;
+    }
+    .dashboard {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        padding: 10px 12px 8px !important;
+    }
+    .maquinas-grid,
+    .roturas-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
     </style>
 </head>
 <body>
