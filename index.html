@@ -638,6 +638,200 @@
 }
 
 
+/* COMENTARIOS */
+.comentarios-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+}
+.com-block {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 12px 14px;
+    border: 1px solid #e6eef7;
+    border-top: 3px solid #4b8bb4;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+.com-block:nth-child(2) { border-top-color: #5f9b6a; }
+.com-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+.com-header h3 {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #1f405e;
+}
+.com-badge {
+    background: #e3edf6;
+    padding: 2px 10px;
+    border-radius: 30px;
+    font-size: 0.55rem;
+    font-weight: 600;
+    color: #1f4b6e;
+}
+.com-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+.com-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.com-row label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #2a5b7a;
+}
+.com-row input,
+.com-row select,
+.com-row textarea {
+    padding: 6px 9px;
+    border: 1px solid #d0dfec;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-family: inherit;
+    color: #0a2942;
+    background: white;
+    outline: none;
+    transition: border 0.2s;
+    resize: vertical;
+}
+.com-row textarea { min-height: 70px; }
+.com-row input:focus,
+.com-row select:focus,
+.com-row textarea:focus {
+    border-color: #4b8bb4;
+    box-shadow: 0 0 0 3px rgba(75,139,180,0.15);
+}
+.com-char-count {
+    font-size: 0.5rem;
+    color: #6a8aa5;
+    text-align: right;
+}
+.com-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+}
+.com-btn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 1px solid #d0dfec;
+    background: #f0f6fc;
+    color: #1f405e;
+    font-weight: 600;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.com-btn.primary {
+    background: #4b8bb4;
+    color: white;
+    border-color: #4b8bb4;
+}
+.com-btn.primary:hover {
+    background: #3a7599;
+}
+.com-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.com-estado {
+    font-size: 0.6rem;
+    color: #4b6f8a;
+    font-weight: 500;
+}
+.com-lista {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.com-vacio {
+    text-align: center;
+    color: #6a8aa5;
+    font-size: 0.65rem;
+    padding: 20px 0;
+    font-style: italic;
+}
+.com-item {
+    background: white;
+    border: 1px solid #e6eef7;
+    border-left: 3px solid #4b8bb4;
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+.com-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+.com-item-meta {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.com-cat {
+    background: #e3edf6;
+    color: #1f4b6e;
+    padding: 1px 8px;
+    border-radius: 30px;
+    font-size: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+.com-maq {
+    background: #fde4d3;
+    color: #a04a20;
+    padding: 1px 8px;
+    border-radius: 30px;
+    font-size: 0.5rem;
+    font-weight: 600;
+}
+.com-nombre {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1f405e;
+}
+.com-fecha {
+    font-size: 0.55rem;
+    color: #6a8aa5;
+}
+.com-texto {
+    font-size: 0.65rem;
+    color: #1b3c57;
+    line-height: 1.4;
+    word-break: break-word;
+}
+@media (max-width: 900px) {
+    .comentarios-grid { grid-template-columns: 1fr; }
+    .comentarios-grid .com-block { max-height: 60vh; }
+}
+
+
         @media (max-width: 1400px) {
             .kpi-global-8 { grid-template-columns: repeat(4, 1fr); }
         }
@@ -731,6 +925,7 @@
         <button class="tab-btn" data-tab="roturas">🔧 Roturas</button>
         <button class="tab-btn" data-tab="tiempos">⏱️ Tiempos Perdidos</button>
         <button class="tab-btn" data-tab="config">⚙️ Configuración</button>
+        <button class="tab-btn" data-tab="comentarios">💬 Comentarios</button>
     </div>
 
     <!-- TAB MÁQUINA -->
@@ -876,7 +1071,75 @@
     </div>
 </div>    
 
+<!-- TAB COMENTARIOS -->
+<div class="tab-content" id="tab-comentarios">
+    <div class="kpi-global">
+        <div class="kpi-card"><div class="kpi-label">Comentarios hoy</div><div class="kpi-value" id="kpiComHoy">-</div><div class="kpi-sub">en esta fecha</div></div>
+        <div class="kpi-card"><div class="kpi-label">Total histórico</div><div class="kpi-value" id="kpiComTotal">-</div><div class="kpi-sub">todos</div></div>
+        <div class="kpi-card"><div class="kpi-label">Categoría top</div><div class="kpi-value" id="kpiComTopCat" style="font-size:0.9rem;">-</div><div class="kpi-sub">más frecuente</div></div>
+        <div class="kpi-card"><div class="kpi-label">Último comentario</div><div class="kpi-value" id="kpiComUltimo" style="font-size:0.8rem;">-</div><div class="kpi-sub" id="kpiComUltimoSub"></div></div>
+    </div>
 
+    <div class="comentarios-grid">
+        <!-- Formulario -->
+        <div class="com-block">
+            <div class="com-header">
+                <h3>✍️ Nuevo comentario</h3>
+                <span class="com-badge" id="comFechaBadge">-</span>
+            </div>
+            <form id="formComentario" class="com-form">
+                <div class="com-row">
+                    <label for="comNombre">👤 Nombre (opcional)</label>
+                    <input type="text" id="comNombre" maxlength="50" placeholder="Anónimo">
+                </div>
+                <div class="com-row">
+                    <label for="comCategoria">🏷️ Categoría</label>
+                    <select id="comCategoria">
+                        <option value="Producción">Producción</option>
+                        <option value="Calidad">Calidad</option>
+                        <option value="Mantenimiento">Mantenimiento</option>
+                        <option value="Planificación">Planificación</option>
+                        <option value="Operario">Operario</option>
+                        <option value="Máquina">Máquina</option>
+                        <option value="Lote">Lote</option>
+                        <option value="Estilo">Estilo</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <div class="com-row">
+                    <label for="comMaquina">🏭 Máquina (opcional)</label>
+                    <select id="comMaquina">
+                        <option value="">— Ninguna —</option>
+                        <option value="URDIDORA # 01">URDIDORA # 01</option>
+                        <option value="URDIDORA # 02">URDIDORA # 02</option>
+                        <option value="URDIDORA # 03">URDIDORA # 03</option>
+                        <option value="URDIDORA # 04">URDIDORA # 04</option>
+                    </select>
+                </div>
+                <div class="com-row">
+                    <label for="comTexto">💬 Comentario *</label>
+                    <textarea id="comTexto" rows="4" maxlength="500" required placeholder="Describe el evento, hallazgo o comentario relevante..."></textarea>
+                    <div class="com-char-count"><span id="comCharCount">0</span>/500</div>
+                </div>
+                <div class="com-actions">
+                    <button type="submit" class="com-btn primary" id="comEnviar">📤 Publicar comentario</button>
+                    <span class="com-estado" id="comEstado"></span>
+                </div>
+            </form>
+        </div>
+
+        <!-- Lista de comentarios -->
+        <div class="com-block">
+            <div class="com-header">
+                <h3>📋 Comentarios registrados</h3>
+                <span class="com-badge" id="comCountBadge">0</span>
+            </div>
+            <div class="com-lista" id="comLista">
+                <p class="com-vacio">Selecciona una fecha para ver comentarios.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="footer-note">
         DATOS PROCESADOS · ROTURAS PRORRATEADAS (EXCLUYE HILOS SUELTOS Y HILO DEBIL) · TIEMPOS CALCULADOS DESDE CSV · 4 MÁQUINAS · TIEMPOS PERDIDOS INCLUIDOS
@@ -1613,13 +1876,14 @@ let TIEMPO_DISPONIBLE_MINUTOS = DEFAULTS.tiempoDisponibleMinutos;
     // TABS
     // ============================================================
     const tabButtons = document.querySelectorAll('.tab-btn');
-   const tabContents = {
+  const tabContents = {
     'maquina': document.getElementById('tab-maquina'),
     'operador': document.getElementById('tab-operador'),
     'titulo': document.getElementById('tab-titulo'),
     'roturas': document.getElementById('tab-roturas'),
     'tiempos': document.getElementById('tab-tiempos'),
-    'config': document.getElementById('tab-config')  // ← nuevo
+    'config': document.getElementById('tab-config'),
+    'comentarios': document.getElementById('tab-comentarios')  // ← nuevo
 };
     tabButtons.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -1876,6 +2140,243 @@ document.getElementById('cfgImportarFile').addEventListener('change', function(e
 const _cfgInicial = cargarConfigGuardada();
 aplicarConfig(_cfgInicial);
 pintarFormularioConfig(_cfgInicial);
+
+
+// ============================================================
+// COMENTARIOS — lectura y escritura vía GitHub
+// ============================================================
+const COMENTARIOS_CSV = 'data/comentarios.csv';
+const API_COMENTARIO = '/api/comentario';
+let comentariosCache = [];      // todos los comentarios (todos los días)
+let comentariosCargados = false;
+
+// Parseo de línea CSV (respeta comillas)
+function parseCSVLine(line) {
+    const values = [];
+    let current = '';
+    let insideQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+            if (insideQuotes && line[i + 1] === '"') { current += '"'; i++; }
+            else insideQuotes = !insideQuotes;
+        } else if (ch === ',' && !insideQuotes) {
+            values.push(current);
+            current = '';
+        } else {
+            current += ch;
+        }
+    }
+    values.push(current);
+    return values;
+}
+
+async function cargarComentarios(forzar = false) {
+    if (comentariosCargados && !forzar) return comentariosCache;
+    try {
+        // cache: 'no-store' para no leer versión vieja
+        const url = COMENTARIOS_CSV + '?t=' + Date.now();
+        const resp = await fetch(url, { cache: 'no-store' });
+        if (!resp.ok) {
+            // Puede que el archivo aún no exista (404). No es crítico.
+            console.warn('comentarios.csv aún no existe o no accesible:', resp.status);
+            comentariosCache = [];
+            comentariosCargados = true;
+            return [];
+        }
+        const texto = await resp.text();
+        const lineas = texto.split('\n').filter(l => l.trim() !== '');
+        if (lineas.length < 2) {
+            comentariosCache = [];
+            comentariosCargados = true;
+            return [];
+        }
+        const headers = parseCSVLine(lineas[0]);
+        const comentarios = [];
+        for (let i = 1; i < lineas.length; i++) {
+            const cols = parseCSVLine(lineas[i]);
+            const obj = {};
+            headers.forEach((h, idx) => { obj[h] = cols[idx] || ''; });
+            comentarios.push(obj);
+        }
+        comentariosCache = comentarios;
+        comentariosCargados = true;
+        return comentarios;
+    } catch (err) {
+        console.warn('Error cargando comentarios:', err);
+        comentariosCache = [];
+        comentariosCargados = true;
+        return [];
+    }
+}
+
+function renderComentarios(fecha) {
+    const fechaFmt = formatearFecha(fecha);
+    document.getElementById('comFechaBadge').textContent = fechaFmt;
+
+    const delDia = comentariosCache.filter(c => c.fecha === fecha);
+    const total = comentariosCache.length;
+
+    // KPIs
+    document.getElementById('kpiComHoy').textContent = delDia.length;
+    document.getElementById('kpiComTotal').textContent = total;
+
+    // Categoría top del día
+    const catCount = {};
+    delDia.forEach(c => { catCount[c.categoria] = (catCount[c.categoria] || 0) + 1; });
+    let topCat = '-', topCount = 0;
+    for (const [cat, n] of Object.entries(catCount)) {
+        if (n > topCount) { topCount = n; topCat = cat; }
+    }
+    document.getElementById('kpiComTopCat').textContent = topCat;
+
+    // Último comentario
+    let ultimo = null;
+    comentariosCache.forEach(c => {
+        const t = new Date(c.timestamp).getTime();
+        if (!isNaN(t) && (!ultimo || t > new Date(ultimo.timestamp).getTime())) {
+            ultimo = c;
+        }
+    });
+    if (ultimo) {
+        document.getElementById('kpiComUltimo').textContent = ultimo.categoria;
+        document.getElementById('kpiComUltimoSub').textContent = ultimo.nombre + ' · ' + formatearFecha(ultimo.fecha);
+    } else {
+        document.getElementById('kpiComUltimo').textContent = '-';
+        document.getElementById('kpiComUltimoSub').textContent = '';
+    }
+
+    // Lista
+    document.getElementById('comCountBadge').textContent = delDia.length;
+    const lista = document.getElementById('comLista');
+    if (delDia.length === 0) {
+        lista.innerHTML = '<p class="com-vacio">Sin comentarios para esta fecha. ¡Sé el primero en aportar!</p>';
+        return;
+    }
+    // Ordenar: más reciente primero
+    delDia.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    let html = '';
+    delDia.forEach(c => {
+        const fechaObj = new Date(c.timestamp);
+        const fechaStr = isNaN(fechaObj) ? c.timestamp : fechaObj.toLocaleString('es-ES', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+        html += `
+            <div class="com-item">
+                <div class="com-item-header">
+                    <div class="com-item-meta">
+                        <span class="com-nombre">${escapeHtml(c.nombre)}</span>
+                        <span class="com-cat">${escapeHtml(c.categoria)}</span>
+                        ${c.maquina ? `<span class="com-maq">${escapeHtml(c.maquina)}</span>` : ''}
+                    </div>
+                    <span class="com-fecha">${fechaStr}</span>
+                </div>
+                <div class="com-texto">${escapeHtml(c.comentario)}</div>
+            </div>`;
+    });
+    lista.innerHTML = html;
+}
+
+function escapeHtml(s) {
+    return String(s ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+// Enviar comentario
+document.getElementById('formComentario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fecha = document.getElementById('fechaSelect').value;
+    if (!fecha) {
+        document.getElementById('comEstado').textContent = '⚠️ Selecciona una fecha primero';
+        return;
+    }
+    const payload = {
+        fecha: fecha,
+        nombre: document.getElementById('comNombre').value.trim(),
+        categoria: document.getElementById('comCategoria').value,
+        maquina: document.getElementById('comMaquina').value,
+        comentario: document.getElementById('comTexto').value.trim()
+    };
+    if (!payload.comentario) {
+        document.getElementById('comEstado').textContent = '⚠️ El comentario está vacío';
+        return;
+    }
+
+    const btn = document.getElementById('comEnviar');
+    const estado = document.getElementById('comEstado');
+    btn.disabled = true;
+    estado.textContent = '⏳ Publicando...';
+
+    try {
+        const resp = await fetch(API_COMENTARIO, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await resp.json();
+
+        if (!resp.ok || !data.ok) {
+            throw new Error(data.error || 'Error desconocido');
+        }
+
+        estado.textContent = '✅ Comentario publicado';
+        document.getElementById('comTexto').value = '';
+        document.getElementById('comCharCount').textContent = '0';
+
+        // Recargar comentarios y re-renderizar
+        await cargarComentarios(true);
+        renderComentarios(fecha);
+
+        setTimeout(() => { estado.textContent = ''; }, 3000);
+    } catch (err) {
+        estado.textContent = '❌ ' + err.message;
+        console.error(err);
+    } finally {
+        btn.disabled = false;
+    }
+});
+
+// Contador de caracteres
+document.getElementById('comTexto').addEventListener('input', function() {
+    document.getElementById('comCharCount').textContent = this.value.length;
+});
+
+// ============================================================
+// Integrar en el flujo del dashboard
+// ============================================================
+// Sobrescribir actualizarDashboard para cargar comentarios
+const _actualizarDashboardOriginal = actualizarDashboard;
+actualizarDashboard = function(fecha) {
+    _actualizarDashboardOriginal(fecha);
+    if (fecha) {
+        // Cargar comentarios si no están en caché, y renderizar
+        (async () => {
+            await cargarComentarios(comentariosCache.length === 0);
+            renderComentarios(fecha);
+        })();
+    }
+};
+
+// Al cambiar de pestaña a Comentarios, recargar desde GitHub (por si hay nuevos)
+tabButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        if (this.dataset.tab === 'comentarios') {
+            const fecha = document.getElementById('fechaSelect').value;
+            if (fecha) {
+                (async () => {
+                    await cargarComentarios(true);
+                    renderComentarios(fecha);
+                })();
+            }
+        }
+    });
+});
+
 
     arrancar();
 </script>
