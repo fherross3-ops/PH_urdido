@@ -1,7 +1,0 @@
-orden,id,nro,inicio,maquina,hora_inicio,turno,persona,estilo,hilo,titulo,lote,nro_madeja,metros_a_urdir,metros_producidos,fecha_fin,fecha_fin_hora,fecha,roturas,IRMM
-1,517923,517923,11/09/26,URDIDORA # 02,06:01,Primer Turno,"Hector, MONTILLA",ALEXA,346,8 Urd,2081,3,16700,0,,,20260911,0,0.0
-1,517924,517923,11/09/26,URDIDORA # 03,06:45,Primer Turno,"Hector, MONTILLA",FARINA,391,10 Liso,3060,8,16700,0,,,20260911,0,0.0
-2,517925,517923,11/09/26,URDIDORA # 03,08:00,Primer Turno,"Hector, MONTILLA",FARINA,391,10 Liso,3060,9,16700,0,,,20260911,0,0.0
-3,517926,517923,11/09/26,URDIDORA # 03,09:15,Primer Turno,"Hector, MONTILLA",FARINA,391,10 Liso,3060,10,16700,0,,,20260911,0,0.0
-4,517927,517923,11/09/26,URDIDORA # 03,10:30,Primer Turno,"Hector, MONTILLA",FARINA,391,10 Liso,3060,11,16700,0,,,20260911,0,0.0
-5,517928,517923,11/09/26,URDIDORA # 03,11:45,Primer Turno,"Hector, MONTILLA",FARINA,391,10 Liso,3060,12,16700,0,,,20260911,0,0.0
