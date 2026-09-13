@@ -2546,7 +2546,80 @@ document.getElementById('comLimpiarFiltros').addEventListener('click', () => {
     if (fecha) renderComentarios(fecha);
 });
 
+// ============================================================
+// EXPORTAR COMENTARIOS A CSV
+// ============================================================
+document.getElementById('comExportar').addEventListener('click', () => {
+    const fecha = document.getElementById('fechaSelect').value;
+    if (!fecha) {
+        alert('Selecciona una fecha primero');
+        return;
+    }
 
+    // Aplicar los mismos filtros que la vista
+    const filtroCat = document.getElementById('comFiltroCat').value;
+    const filtroBuscar = document.getElementById('comBuscar').value.toLowerCase().trim();
+
+    let delDia = comentariosCache.filter(c => c.fecha === fecha);
+    if (filtroCat) {
+        delDia = delDia.filter(c => c.categoria === filtroCat);
+    }
+    if (filtroBuscar) {
+        delDia = delDia.filter(c => {
+            const texto = [c.comentario, c.nombre, c.maquina, c.categoria]
+                .join(' ').toLowerCase();
+            return texto.includes(filtroBuscar);
+        });
+    }
+
+    if (delDia.length === 0) {
+        alert('No hay comentarios que coincidan con los filtros actuales.');
+        return;
+    }
+
+    // Ordenar: más reciente primero (igual que en pantalla)
+    delDia.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    // Construir CSV
+    const cabecera = 'id,fecha,timestamp,nombre,categoria,maquina,comentario';
+    const escaparCSV = (s) => {
+        const str = String(s ?? '');
+        if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+            return '"' + str.replace(/"/g, '""') + '"';
+        }
+        return str;
+    };
+
+    const lineas = delDia.map(c => [
+        c.id,
+        c.fecha,
+        c.timestamp,
+        escaparCSV(c.nombre),
+        escaparCSV(c.categoria),
+        escaparCSV(c.maquina),
+        escaparCSV(c.comentario)
+    ].join(','));
+
+    // Añadir BOM para que Excel abra bien los acentos
+    const contenidoCSV = '\uFEFF' + cabecera + '\n' + lineas.join('\n') + '\n';
+
+    // Nombre del archivo con fecha y filtros aplicados
+    const partes = [`comentarios_${fecha}`];
+    if (filtroCat) partes.push(filtroCat.toLowerCase().replace(/\s+/g, '_'));
+    if (filtroBuscar) partes.push('busqueda');
+    const nombreArchivo = partes.join('_') + '.csv';
+
+    // Descargar
+    const blob = new Blob([contenidoCSV], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nombreArchivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
 
 
     arrancar();
