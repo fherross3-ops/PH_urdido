@@ -2355,79 +2355,80 @@ function renderComentarios(fecha) {
     }
 
     // Aplicar filtros
-const filtroCat = document.getElementById('comFiltroCat').value;
-const filtroBuscar = document.getElementById('comBuscar').value.toLowerCase().trim();
+    // Aplicar filtros
+    const filtroCat = document.getElementById('comFiltroCat').value;
+    const filtroBuscar = document.getElementById('comBuscar').value.toLowerCase().trim();
 
-let filtrados = delDia;
-if (filtroCat) {
-    filtrados = filtrados.filter(c => c.categoria === filtroCat);
-}
-if (filtroBuscar) {
-    filtrados = filtrados.filter(c => {
-        const texto = [c.comentario, c.nombre, c.maquina, c.categoria]
-            .join(' ').toLowerCase();
-        return texto.includes(filtroBuscar);
-    });
-}
-
-// Actualizar contador
-document.getElementById('comCountBadge').textContent = filtrados.length;
-if (filtrados.length !== delDia.length) {
-    document.getElementById('comCountBadge').textContent =
-        `${filtrados.length}/${delDia.length}`;
-}
-
-// Lista
-const lista = document.getElementById('comLista');
-if (filtrados.length === 0) {
-    if (delDia.length === 0) {
-        lista.innerHTML = '<p class="com-vacio">Sin comentarios para esta fecha. ¡Sé el primero en aportar!</p>';
-    } else {
-        lista.innerHTML = '<p class="com-vacio">No hay comentarios que coincidan con los filtros.</p>';
+    let filtrados = delDia;
+    if (filtroCat) {
+        filtrados = filtrados.filter(c => c.categoria === filtroCat);
     }
-    // Actualizar badge del header igual
+    if (filtroBuscar) {
+        filtrados = filtrados.filter(c => {
+            const texto = [c.comentario, c.nombre, c.maquina, c.categoria]
+                .join(' ').toLowerCase();
+            return texto.includes(filtroBuscar);
+        });
+    }
+
+    // Actualizar contador
+    document.getElementById('comCountBadge').textContent = filtrados.length;
+    if (filtrados.length !== delDia.length) {
+        document.getElementById('comCountBadge').textContent =
+            `${filtrados.length}/${delDia.length}`;
+    }
+
+    // Lista
+    const lista = document.getElementById('comLista');
+    if (filtrados.length === 0) {
+        if (delDia.length === 0) {
+            lista.innerHTML = '<p class="com-vacio">Sin comentarios para esta fecha. ¡Sé el primero en aportar!</p>';
+        } else {
+            lista.innerHTML = '<p class="com-vacio">No hay comentarios que coincidan con los filtros.</p>';
+        }
+        // Actualizar badge del header igual
+        const badge = document.getElementById('badgeComentarios');
+        const badgeNum = document.getElementById('badgeComCount');
+        if (badge && badgeNum) {
+            badgeNum.textContent = delDia.length;
+            badge.classList.toggle('hay-comentarios', delDia.length > 0);
+        }
+        return;
+    }
+
+    // Ordenar: más reciente primero
+    filtrados.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    let html = '';
+    filtrados.forEach(c => {
+        const fechaObj = new Date(c.timestamp);
+        const fechaStr = isNaN(fechaObj) ? c.timestamp : fechaObj.toLocaleString('es-ES', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
+        html += `
+            <div class="com-item">
+                <div class="com-item-header">
+                    <div class="com-item-meta">
+                        <span class="com-nombre">${escapeHtml(c.nombre)}</span>
+                        <span class="com-cat">${escapeHtml(c.categoria)}</span>
+                        ${c.maquina ? `<span class="com-maq">${escapeHtml(c.maquina)}</span>` : ''}
+                    </div>
+                    <span class="com-fecha">${fechaStr}</span>
+                </div>
+                <div class="com-texto">${escapeHtml(c.comentario)}</div>
+            </div>`;
+    });
+    lista.innerHTML = html;
+
+    // Actualizar badge del header
     const badge = document.getElementById('badgeComentarios');
     const badgeNum = document.getElementById('badgeComCount');
     if (badge && badgeNum) {
         badgeNum.textContent = delDia.length;
         badge.classList.toggle('hay-comentarios', delDia.length > 0);
     }
-}
-    return;
-}
-
-// Ordenar: más reciente primero
-filtrados.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-let html = '';
-filtrados.forEach(c => {
-    const fechaObj = new Date(c.timestamp);
-    const fechaStr = isNaN(fechaObj) ? c.timestamp : fechaObj.toLocaleString('es-ES', {
-        day: '2-digit', month: '2-digit', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-    });
-    html += `
-        <div class="com-item">
-            <div class="com-item-header">
-                <div class="com-item-meta">
-                    <span class="com-nombre">${escapeHtml(c.nombre)}</span>
-                    <span class="com-cat">${escapeHtml(c.categoria)}</span>
-                    ${c.maquina ? `<span class="com-maq">${escapeHtml(c.maquina)}</span>` : ''}
-                </div>
-                <span class="com-fecha">${fechaStr}</span>
-            </div>
-            <div class="com-texto">${escapeHtml(c.comentario)}</div>
-        </div>`;
-});
-lista.innerHTML = html;
-
-// Actualizar badge del header
-const badge = document.getElementById('badgeComentarios');
-const badgeNum = document.getElementById('badgeComCount');
-if (badge && badgeNum) {
-    badgeNum.textContent = delDia.length;
-    badge.classList.toggle('hay-comentarios', delDia.length > 0);
-}
+}  // ← ESTA es la única llave que cierra renderComentarios
 
 function escapeHtml(s) {
     return String(s ?? '')
