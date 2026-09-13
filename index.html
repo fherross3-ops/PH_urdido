@@ -832,6 +832,28 @@
 }
 
 
+/* BADGE COMENTARIOS */
+.header-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.badge-com {
+    background: #eef7ee;
+    border-color: #c4dcc4;
+    color: #2a5b2a;
+    transition: all 0.3s;
+}
+.badge-com.hay-comentarios {
+    background: #d4ecd4;
+    border-color: #7fb87f;
+    box-shadow: 0 0 0 3px rgba(95, 155, 106, 0.15);
+}
+.badge-com .badge-num {
+    background: #c4dcc4;
+}
+
+
         @media (max-width: 1400px) {
             .kpi-global-8 { grid-template-columns: repeat(4, 1fr); }
         }
@@ -912,9 +934,14 @@
             </div>
             <span class="file-status" id="fileStatus">Iniciando...</span>
         </div>
-        <div class="badge-csv">
-            📁 Datos <span id="totalRegistros">0</span> registros
-        </div>
+      <div class="header-badges">
+    <div class="badge-csv">
+        📁 Datos <span id="totalRegistros">0</span> registros
+    </div>
+    <div class="badge-csv badge-com" id="badgeComentarios">
+        💬 <span id="badgeComCount">0</span> comentarios
+    </div>
+</div>
     </div>
 
     <!-- TABS -->
@@ -2277,6 +2304,17 @@ function renderComentarios(fecha) {
     });
     lista.innerHTML = html;
 }
+
+// Actualizar badge del header
+const badge = document.getElementById('badgeComentarios');
+const badgeNum = document.getElementById('badgeComCount');
+if (badge && badgeNum) {
+    badgeNum.textContent = delDia.length;
+    badge.classList.toggle('hay-comentarios', delDia.length > 0);
+}
+
+
+
 
 function escapeHtml(s) {
     return String(s ?? '')
