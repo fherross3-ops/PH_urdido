@@ -886,6 +886,64 @@
 /* ============================================ */
 /* MÓVIL: permitir scroll vertical              */
 /* ============================================ */
+
+
+/* FILTROS DE COMENTARIOS */
+.com-header-tools {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.com-btn-tool {
+    background: #e3edf6;
+    border: 1px solid #d0dfec;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: background 0.2s;
+}
+.com-btn-tool:hover { background: #d0dfec; }
+.com-filtros {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+.com-filtro {
+    padding: 5px 8px;
+    border: 1px solid #d0dfec;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    background: white;
+    color: #1f405e;
+    outline: none;
+    font-family: inherit;
+}
+.com-filtro:focus {
+    border-color: #4b8bb4;
+    box-shadow: 0 0 0 3px rgba(75,139,180,0.15);
+}
+#comFiltroCat { min-width: 130px; }
+#comBuscar { flex: 1; }
+.com-btn-clear {
+    background: #f0f6fc;
+    border: 1px solid #d0dfec;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    color: #6a8aa5;
+    transition: all 0.2s;
+}
+.com-btn-clear:hover {
+    background: #fde4d3;
+    color: #a04a20;
+    border-color: #d97747;
+}
+
+
+
 @media (max-width: 900px) {
     body {
         overflow-y: auto !important;
@@ -1156,15 +1214,38 @@
         </div>
 
         <!-- Lista de comentarios -->
-        <div class="com-block">
-            <div class="com-header">
-                <h3>📋 Comentarios registrados</h3>
-                <span class="com-badge" id="comCountBadge">0</span>
-            </div>
-            <div class="com-lista" id="comLista">
-                <p class="com-vacio">Selecciona una fecha para ver comentarios.</p>
-            </div>
+       <div class="com-block">
+    <div class="com-header">
+        <h3>📋 Comentarios registrados</h3>
+        <div class="com-header-tools">
+            <span class="com-badge" id="comCountBadge">0</span>
+            <button class="com-btn-tool" id="comExportar" title="Exportar comentarios a CSV">📥</button>
         </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="com-filtros">
+        <select id="comFiltroCat" class="com-filtro">
+            <option value="">Todas las categorías</option>
+            <option value="Producción">Producción</option>
+            <option value="Calidad">Calidad</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+            <option value="Planificación">Planificación</option>
+            <option value="Operario">Operario</option>
+            <option value="Máquina">Máquina</option>
+            <option value="Lote">Lote</option>
+            <option value="Estilo">Estilo</option>
+            <option value="General">General</option>
+        </select>
+        <input type="text" id="comBuscar" class="com-filtro" placeholder="🔍 Buscar en comentarios...">
+        <button class="com-btn-clear" id="comLimpiarFiltros" title="Limpiar filtros">✕</button>
+    </div>
+
+    <div class="com-lista" id="comLista">
+        <p class="com-vacio">Selecciona una fecha para ver comentarios.</p>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -2273,37 +2354,71 @@ function renderComentarios(fecha) {
         document.getElementById('kpiComUltimoSub').textContent = '';
     }
 
-    // Lista
-    document.getElementById('comCountBadge').textContent = delDia.length;
-    const lista = document.getElementById('comLista');
+    // Aplicar filtros
+const filtroCat = document.getElementById('comFiltroCat').value;
+const filtroBuscar = document.getElementById('comBuscar').value.toLowerCase().trim();
+
+let filtrados = delDia;
+if (filtroCat) {
+    filtrados = filtrados.filter(c => c.categoria === filtroCat);
+}
+if (filtroBuscar) {
+    filtrados = filtrados.filter(c => {
+        const texto = [c.comentario, c.nombre, c.maquina, c.categoria]
+            .join(' ').toLowerCase();
+        return texto.includes(filtroBuscar);
+    });
+}
+
+// Actualizar contador
+document.getElementById('comCountBadge').textContent = filtrados.length;
+if (filtrados.length !== delDia.length) {
+    document.getElementById('comCountBadge').textContent =
+        `${filtrados.length}/${delDia.length}`;
+}
+
+// Lista
+const lista = document.getElementById('comLista');
+if (filtrados.length === 0) {
     if (delDia.length === 0) {
         lista.innerHTML = '<p class="com-vacio">Sin comentarios para esta fecha. ¡Sé el primero en aportar!</p>';
-        return;
+    } else {
+        lista.innerHTML = '<p class="com-vacio">No hay comentarios que coincidan con los filtros.</p>';
     }
-    // Ordenar: más reciente primero
-    delDia.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    let html = '';
-    delDia.forEach(c => {
-        const fechaObj = new Date(c.timestamp);
-        const fechaStr = isNaN(fechaObj) ? c.timestamp : fechaObj.toLocaleString('es-ES', {
-            day: '2-digit', month: '2-digit', year: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        });
-        html += `
-            <div class="com-item">
-                <div class="com-item-header">
-                    <div class="com-item-meta">
-                        <span class="com-nombre">${escapeHtml(c.nombre)}</span>
-                        <span class="com-cat">${escapeHtml(c.categoria)}</span>
-                        ${c.maquina ? `<span class="com-maq">${escapeHtml(c.maquina)}</span>` : ''}
-                    </div>
-                    <span class="com-fecha">${fechaStr}</span>
-                </div>
-                <div class="com-texto">${escapeHtml(c.comentario)}</div>
-            </div>`;
-    });
-    lista.innerHTML = html;
+    // Actualizar badge del header igual
+    const badge = document.getElementById('badgeComentarios');
+    const badgeNum = document.getElementById('badgeComCount');
+    if (badge && badgeNum) {
+        badgeNum.textContent = delDia.length;
+        badge.classList.toggle('hay-comentarios', delDia.length > 0);
+    }
+    return;
 }
+
+// Ordenar: más reciente primero
+filtrados.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+let html = '';
+filtrados.forEach(c => {
+    const fechaObj = new Date(c.timestamp);
+    const fechaStr = isNaN(fechaObj) ? c.timestamp : fechaObj.toLocaleString('es-ES', {
+        day: '2-digit', month: '2-digit', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+    });
+    html += `
+        <div class="com-item">
+            <div class="com-item-header">
+                <div class="com-item-meta">
+                    <span class="com-nombre">${escapeHtml(c.nombre)}</span>
+                    <span class="com-cat">${escapeHtml(c.categoria)}</span>
+                    ${c.maquina ? `<span class="com-maq">${escapeHtml(c.maquina)}</span>` : ''}
+                </div>
+                <span class="com-fecha">${fechaStr}</span>
+            </div>
+            <div class="com-texto">${escapeHtml(c.comentario)}</div>
+        </div>`;
+});
+lista.innerHTML = html;
 
 // Actualizar badge del header
 const badge = document.getElementById('badgeComentarios');
@@ -2312,9 +2427,6 @@ if (badge && badgeNum) {
     badgeNum.textContent = delDia.length;
     badge.classList.toggle('hay-comentarios', delDia.length > 0);
 }
-
-
-
 
 function escapeHtml(s) {
     return String(s ?? '')
@@ -2414,6 +2526,25 @@ tabButtons.forEach(btn => {
         }
     });
 });
+
+
+// Listeners de filtros de comentarios
+document.getElementById('comFiltroCat').addEventListener('change', () => {
+    const fecha = document.getElementById('fechaSelect').value;
+    if (fecha) renderComentarios(fecha);
+});
+document.getElementById('comBuscar').addEventListener('input', () => {
+    const fecha = document.getElementById('fechaSelect').value;
+    if (fecha) renderComentarios(fecha);
+});
+document.getElementById('comLimpiarFiltros').addEventListener('click', () => {
+    document.getElementById('comFiltroCat').value = '';
+    document.getElementById('comBuscar').value = '';
+    const fecha = document.getElementById('fechaSelect').value;
+    if (fecha) renderComentarios(fecha);
+});
+
+
 
 
     arrancar();
