@@ -1,4 +1,9 @@
-maquina,tipo_rotura,cantidad,fecha
-URDIDORA # 01,Interferencia entre hilos,5,20260914
-URDIDORA # 01,Moña,1,20260914
-URDIDORA # 01,Hilos sueltos,2,20260914
+﻿maquina,tipo_rotura,cantidad,fecha
+GLOBAL,Moña,8.0,20260914
+GLOBAL,Interferencia entre hilos,6.0,20260914
+GLOBAL,Hilos sueltos,2.0,20260914
+GLOBAL,Moña,19.0,20260914
+GLOBAL,Queso picado externo,10.0,20260914
+GLOBAL,Interferencia entre hilos,5.0,20260914
+GLOBAL,Hilos sueltos,11.0,20260914
+GLOBAL,Moña,3.0,20260914
