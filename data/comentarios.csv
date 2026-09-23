@@ -4,3 +4,4 @@ id,fecha,timestamp,nombre,categoria,maquina,comentario
 3,20260908,2026-09-17T18:53:28.890Z,Anónimo,Producción,URDIDORA # 01,PLAN DE MANTENIMIENTO Y ALINEACION
 4,20260908,2026-09-18T15:58:23.759Z,Anónimo,Producción,URDIDORA # 02,1. Se deja el operador Jose Ochoa redoblando para realizar un cambio de estilo.
 5,20260918,2026-09-23T21:54:20.627Z,victor,Mantenimiento,URDIDORA # 01,mantenimiento y alineación del creel
+6,20260918,2026-09-23T21:55:22.708Z,victor,Producción,URDIDORA # 02,Falta de material para Urdir
