@@ -1,13 +1,13 @@
-﻿maquina,tipo_rotura,cantidad,fecha
-GLOBAL,Interferencia entre hilos,5.0,20260923
-GLOBAL,Moña,4.0,20260923
-GLOBAL,Cola o reserva,2.0,20260923
-GLOBAL,Hilos sueltos,5.0,20260923
-GLOBAL,Moña,5.0,20260923
-GLOBAL,Cola o reserva,2.0,20260923
-GLOBAL,Moña,35.0,20260923
-GLOBAL,Cambio o transferencia,11.0,20260923
-GLOBAL,Interferencia entre hilos,5.0,20260923
-GLOBAL,Cola o reserva,5.0,20260923
-GLOBAL,Interferencia manipulacion,2.0,20260923
-GLOBAL,Hilos sueltos,15.0,20260923
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 02,Interferencia entre hilos,5,20260923
+URDIDORA # 02,Moña,4,20260923
+URDIDORA # 02,Cola o reserva,2,20260923
+URDIDORA # 02,Hilos sueltos,5,20260923
+URDIDORA # 03,Moña,5,20260923
+URDIDORA # 03,Cola o reserva,2,20260923
+URDIDORA # 04,Moña,35,20260923
+URDIDORA # 04,Cambio o transferencia,11,20260923
+URDIDORA # 04,Interferencia entre hilos,5,20260923
+URDIDORA # 04,Cola o reserva,5,20260923
+URDIDORA # 04,Interferencia manipulacion,2,20260923
+URDIDORA # 04,Hilos sueltos,15,20260923
