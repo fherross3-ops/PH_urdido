@@ -832,6 +832,30 @@
 }
 
 
+/* INPUT DATE + HINT COMENTARIOS */
+.com-hint {
+    font-size: 0.5rem;
+    color: #6a8aa5;
+    margin-top: 2px;
+    line-height: 1.3;
+}
+.com-row input[type="date"] {
+    padding: 6px 9px;
+    border: 1px solid #d0dfec;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-family: inherit;
+    color: #0a2942;
+    background: white;
+    outline: none;
+    transition: border 0.2s;
+}
+.com-row input[type="date"]:focus {
+    border-color: #4b8bb4;
+    box-shadow: 0 0 0 3px rgba(75,139,180,0.15);
+}
+
+
 /* BADGE COMENTARIOS */
 .header-badges {
     display: flex;
@@ -1202,6 +1226,11 @@
                     </select>
                 </div>
                 <div class="com-row">
+                    <label for="comFecha">📅 Fecha del evento</label>
+                    <input type="date" id="comFecha" required>
+                    <span class="com-hint">Por defecto: la fecha mostrada. Cámbiala si el evento es de otro día.</span>
+                </div>
+                <div class="com-row">
                     <label for="comTexto">💬 Comentario *</label>
                     <textarea id="comTexto" rows="4" maxlength="500" required placeholder="Describe el evento, hallazgo o comentario relevante..."></textarea>
                     <div class="com-char-count"><span id="comCharCount">0</span>/500</div>
@@ -1311,6 +1340,16 @@ let TIEMPO_DISPONIBLE_MINUTOS = DEFAULTS.tiempoDisponibleMinutos;
         const m = String(d.getMonth() + 1).padStart(2, '0');
         const dia = String(d.getDate()).padStart(2, '0');
         return `${y}${m}${dia}`;
+    }
+
+    function fechaParaInput(fechaYYYYMMDD) {
+        if (!fechaYYYYMMDD || fechaYYYYMMDD.length !== 8) return '';
+        return `${fechaYYYYMMDD.slice(0,4)}-${fechaYYYYMMDD.slice(4,6)}-${fechaYYYYMMDD.slice(6,8)}`;
+    }
+
+    function inputParaFecha(iso) {
+        if (!iso) return '';
+        return iso.replace(/-/g, '');
     }
 
     function parseFechaHora(fechaStr, horaStr) {
@@ -2035,6 +2074,7 @@ let TIEMPO_DISPONIBLE_MINUTOS = DEFAULTS.tiempoDisponibleMinutos;
             // Cargar la más reciente
             const ultima = fechasDisponibles[0];
             select.value = ultima;
+            document.getElementById('comFecha').value = fechaParaInput(ultima);
 
             document.getElementById('loadingText').textContent = 'Cargando datos...';
             document.getElementById('loadingSub').textContent = formatearFecha(ultima);
@@ -2045,6 +2085,7 @@ let TIEMPO_DISPONIBLE_MINUTOS = DEFAULTS.tiempoDisponibleMinutos;
             // Listener del selector
             select.addEventListener('change', async function() {
                 if (!this.value) return;
+                document.getElementById('comFecha').value = fechaParaInput(this.value);
                 overlay.classList.remove('hidden');
                 document.getElementById('loadingText').textContent = 'Cargando fecha...';
                 document.getElementById('loadingSub').textContent = formatearFecha(this.value);
@@ -2355,7 +2396,6 @@ function renderComentarios(fecha) {
     }
 
     // Aplicar filtros
-    // Aplicar filtros
     const filtroCat = document.getElementById('comFiltroCat').value;
     const filtroBuscar = document.getElementById('comBuscar').value.toLowerCase().trim();
 
@@ -2442,11 +2482,13 @@ function escapeHtml(s) {
 // Enviar comentario
 document.getElementById('formComentario').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const fecha = document.getElementById('fechaSelect').value;
-    if (!fecha) {
-        document.getElementById('comEstado').textContent = '⚠️ Selecciona una fecha primero';
+    const fechaFormulario = document.getElementById('comFecha').value;
+    if (!fechaFormulario) {
+        document.getElementById('comEstado').textContent = '⚠️ Selecciona una fecha para el comentario';
         return;
     }
+    const fecha = inputParaFecha(fechaFormulario);
+    const fechaMostrada = document.getElementById('fechaSelect').value;
     const payload = {
         fecha: fecha,
         nombre: document.getElementById('comNombre').value.trim(),
@@ -2476,15 +2518,19 @@ document.getElementById('formComentario').addEventListener('submit', async (e) =
             throw new Error(data.error || 'Error desconocido');
         }
 
-        estado.textContent = '✅ Comentario publicado';
+        if (fecha === fechaMostrada) {
+            estado.textContent = '✅ Comentario publicado';
+        } else {
+            estado.textContent = `✅ Guardado para ${formatearFecha(fecha)} · aparecerá cuando se cargue ese día`;
+        }
         document.getElementById('comTexto').value = '';
         document.getElementById('comCharCount').textContent = '0';
 
         // Recargar comentarios y re-renderizar
         await cargarComentarios(true);
-        renderComentarios(fecha);
+        renderComentarios(fechaMostrada);
 
-        setTimeout(() => { estado.textContent = ''; }, 3000);
+        setTimeout(() => { estado.textContent = ''; }, 5000);
     } catch (err) {
         estado.textContent = '❌ ' + err.message;
         console.error(err);
