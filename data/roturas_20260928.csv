@@ -1,0 +1,14 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 01,Moña,11,20260928
+URDIDORA # 01,Interferencia entre hilos,5,20260928
+URDIDORA # 01,Hilos sueltos,2,20260928
+URDIDORA # 02,Interferencia entre hilos,15,20260928
+URDIDORA # 02,Moña,8,20260928
+URDIDORA # 02,Queso picado interno (OE),1,20260928
+URDIDORA # 02,Hilos sueltos,8,20260928
+URDIDORA # 04,Interferencia entre hilos,22,20260928
+URDIDORA # 04,Cola o reserva,10,20260928
+URDIDORA # 04,Moña,8,20260928
+URDIDORA # 04,Hilo debil,4,20260928
+URDIDORA # 04,Queso picado externo,3,20260928
+URDIDORA # 04,Hilos sueltos,26,20260928
