@@ -1,3 +1,3 @@
-﻿Fecha,item,Maquina,Codigo_Tperdido,Causa_Descripcion,Tiempo_Horas,%TiempoPerdido
-23-09-2026,1,GLOBAL,16,FALLA MECANICA.,1.98,24.75
-23-09-2026,2,GLOBAL,43,FALTA DE MATERIAL (HILO PARA URDIR),1.50,18.75
+﻿fecha,maquina,item,codigo,causa,hrs,porcentaje
+20260923,GLOBAL,1,16,FALLA MECANICA.,1.98,24.75
+20260923,GLOBAL,2,43,FALTA DE MATERIAL (HILO PARA URDIR),1.5,18.75

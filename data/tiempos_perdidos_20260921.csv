@@ -1,2 +1,2 @@
-﻿Fecha,item,Maquina,Codigo_Tperdido,Causa_Descripcion,Tiempo_Horas,%TiempoPerdido
-21-09-2026,1,GLOBAL,56,PREPARACION MAQUINA URDIDO,1.65,20.63
+﻿fecha,maquina,item,codigo,causa,hrs,porcentaje
+20260921,GLOBAL,1,56,PREPARACION MAQUINA URDIDO,1.65,20.63
