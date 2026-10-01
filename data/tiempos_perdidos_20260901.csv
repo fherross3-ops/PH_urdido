@@ -1,3 +1,2 @@
-fecha,maquina,item,codigo,causa,hrs,porcentaje
-20260901,URDIDORA # 03,1,1,AUSENTISMO.,5.50,68.75
-20260901,URDIDORA # 04,1,1,AUSENTISMO.,5.50,17.1875
+﻿Fecha,item,Maquina,Codigo_Tperdido,Causa_Descripcion,Tiempo_Horas,%TiempoPerdido
+01-09-2026,1,GLOBAL,1,AUSENTISMO.,5.50,68.75

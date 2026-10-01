@@ -1,8 +1,12 @@
-orden,id,nro,inicio,maquina,hora_inicio,turno,persona,estilo,hilo,titulo,lote,nro_madeja,metros_a_urdir,metros_producidos,fecha_fin,fecha_fin_hora,fecha,roturas,IRMM
-1,518837,518837,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,14,,19500,,,20260913,7,1.026
-2,518838,518838,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,15,,19500,,,20260913,6,0.879
-3,518839,518839,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,16,,19500,,,20260913,10,1.465
-4,518833,518833,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,10,,19500,,,20260913,0,0.000
-5,518834,518834,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,11,,19500,,,20260913,3,0.440
-6,518835,518835,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,12,,19500,,,20260913,1,0.147
-7,518836,518836,,URDIDORA # 01,,,"JOSE MIGUEL, BRETO N",ewVictoria 250.,,10,1058,13,,19500,,,20260913,2,0.293
+﻿Tipo,Col_1,Col_2,Col_3,Col_4,Col_5,Col_6,Col_7,Col_8,Col_9,Col_10,Col_11,Col_12
+Detalle_Produccion,13-09-2026,GLOBAL,1,518839,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,16,19500,10,1.465
+Detalle_Produccion,13-09-2026,GLOBAL,2,518833,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,10,19500,0,0.000
+Detalle_Produccion,13-09-2026,GLOBAL,3,518834,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,11,19500,3,0.440
+Detalle_Produccion,13-09-2026,GLOBAL,4,518835,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,12,19500,1,0.147
+Detalle_Produccion,13-09-2026,GLOBAL,5,518836,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,13,19500,2,0.293
+Detalle_Produccion,13-09-2026,GLOBAL,6,518837,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,14,19500,7,1.026
+Detalle_Produccion,13-09-2026,GLOBAL,7,518838,"JOSE MIGUEL, BRETO N",ewVictoria 250.,10,1058,15,19500,6,0.879
+Roturas_Maquina,13-09-2026,1,GLOBAL,27,Interferencia entre hilos,27,,,,,,
+Roturas_Maquina,13-09-2026,2,GLOBAL,1,Moña,1,,,,,,
+Roturas_Maquina,13-09-2026,3,GLOBAL,23,Queso picado interno (OE),1,,,,,,
+Roturas_Maquina,13-09-2026,1,GLOBAL,1,Hilos sueltos,4,,,,,,

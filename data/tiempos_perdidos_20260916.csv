@@ -1,3 +1,2 @@
-fecha,maquina,item,codigo,causa,hrs,porcentaje
-20260916,URDIDORA # 03,1,43,FALTA DE MATERIAL (HILO PARA URDIR),1.83,22.88
-20260916,URDIDORA # 04,1,43,FALTA DE MATERIAL (HILO PARA URDIR),1.83,5.7188
+﻿Fecha,item,Maquina,Codigo_Tperdido,Causa_Descripcion,Tiempo_Horas,%TiempoPerdido
+16-09-2026,1,GLOBAL,43,FALTA DE MATERIAL (HILO PARA URDIR),1.83,22.88

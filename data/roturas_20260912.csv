@@ -1,5 +1,5 @@
-maquina,tipo_rotura,cantidad,fecha
-URDIDORA # 01,Interferencia entre hilos,32,20260912
-URDIDORA # 01,Moña,21,20260912
-URDIDORA # 01,Nudo flojo,7,20260912
-URDIDORA # 01,Hilos sueltos,17,20260912
+﻿maquina,tipo_rotura,cantidad,fecha
+GLOBAL,Interferencia entre hilos,32.0,20260912
+GLOBAL,Moña,21.0,20260912
+GLOBAL,Nudo flojo,7.0,20260912
+GLOBAL,Hilos sueltos,17.0,20260912
