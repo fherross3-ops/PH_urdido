@@ -1,0 +1,11 @@
+Fecha	Maquina	Item	Codigo1	Nombre-Operador	Estilo	Titulo	Lote	N°Madeja	Produccion	Roturas	IRMM
+											
+Fecha	Item	Codigo2	Maquina	Produccion_en_Metros	Esperado_en_Metros	Produccion_en_Madejas	Esperado_en_madejas	%Efectividad	Roturas	IRMM	
+											
+Fecha	Item	Operador	ProduccionMetros	EsperadoMetros	ProduccionMadejas	Esperado_madejas	%Efectividad	Roturas	IRMM		
+											
+Fecha	item	Titulo	Lote	ProduccionMetros	ProduccionMadejas	Roturas	IRMM				
+											
+Fecha	Item	Maquina	Codigo_Rotura	Roturas-Descripcion	Cantidad						
+											
+Fecha	item	Maquina	Codigo_Tperdido	Causa_Descripcion	Tiempo_Horas	%TiempoPerdido					

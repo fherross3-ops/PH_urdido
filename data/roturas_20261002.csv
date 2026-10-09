@@ -1,14 +1,14 @@
-﻿maquina,tipo_rotura,cantidad,fecha
-GLOBAL,Interferencia entre hilos,11.0,20261002
-GLOBAL,interferencia queso caido,3.0,20261002
-GLOBAL,Moña,2.0,20261002
-GLOBAL,Queso picado interno (OE),2.0,20261002
-GLOBAL,Cola o reserva,2.0,20261002
-GLOBAL,Interferencia manipulacion,2.0,20261002
-GLOBAL,Hilos sueltos,8.0,20261002
-GLOBAL,Moña,6.0,20261002
-GLOBAL,Interferencia manipulacion,1.0,20261002
-GLOBAL,Interferencia entre antibalon,1.0,20261002
-GLOBAL,Moña,8.0,20261002
-GLOBAL,Interferencia entre hilos,4.0,20261002
-GLOBAL,Hilos sueltos,8.0,20261002
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 02,Interferencia entre hilos,11,20261002
+URDIDORA # 02,interferencia queso caido,3,20261002
+URDIDORA # 02,Interferencia manipulacion,2,20261002
+URDIDORA # 02,Moña,2,20261002
+URDIDORA # 02,Queso picado interno (OE),2,20261002
+URDIDORA # 02,Cola o reserva,2,20261002
+URDIDORA # 02,Hilos sueltos,8,20261002
+URDIDORA # 03,Moña,6,20261002
+URDIDORA # 03,Interferencia entre antibalon,1,20261002
+URDIDORA # 03,Interferencia manipulacion,1,20261002
+URDIDORA # 04,Moña,8,20261002
+URDIDORA # 04,Interferencia entre hilos,4,20261002
+URDIDORA # 04,Hilos sueltos,8,20261002
