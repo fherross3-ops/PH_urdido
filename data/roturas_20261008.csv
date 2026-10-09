@@ -1,34 +1,12 @@
 ﻿maquina,tipo_rotura,cantidad,fecha
 GLOBAL,Interferencia entre hilos,18.0,20261008
-GLOBAL,Moña,1.0,20261008
 GLOBAL,Interferencia manipulacion,1.0,20261008
+GLOBAL,Moña,1.0,20261008
 GLOBAL,Hilos sueltos,8.0,20261008
-GLOBAL,Moña,7.0,20261008
+GLOBAL,Moña,16.0,20261008
 GLOBAL,Cola o reserva,4.0,20261008
 GLOBAL,Cambio o transferencia,2.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
-GLOBAL,Moña,4.0,20261008
-GLOBAL,Interferencia entre hilos,1.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
-GLOBAL,Interferencia entre hilos,18.0,20261008
-GLOBAL,Moña,1.0,20261008
-GLOBAL,Interferencia manipulacion,1.0,20261008
-GLOBAL,Hilos sueltos,8.0,20261008
-GLOBAL,Moña,7.0,20261008
-GLOBAL,Cola o reserva,4.0,20261008
-GLOBAL,Cambio o transferencia,2.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
-GLOBAL,Moña,4.0,20261008
-GLOBAL,Interferencia entre hilos,1.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
-GLOBAL,Interferencia entre hilos,18.0,20261008
-GLOBAL,Moña,1.0,20261008
-GLOBAL,Interferencia manipulacion,1.0,20261008
-GLOBAL,Hilos sueltos,8.0,20261008
-GLOBAL,Moña,7.0,20261008
-GLOBAL,Cola o reserva,4.0,20261008
-GLOBAL,Cambio o transferencia,2.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
-GLOBAL,Moña,4.0,20261008
-GLOBAL,Interferencia entre hilos,1.0,20261008
-GLOBAL,Hilos sueltos,3.0,20261008
+GLOBAL,Hilos sueltos,4.0,20261008
+GLOBAL,Moña,16.0,20261008
+GLOBAL,Interferencia entre hilos,8.0,20261008
+GLOBAL,Hilos sueltos,13.0,20261008
