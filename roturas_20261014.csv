@@ -1,0 +1,12 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 01,Moña,7,20261014
+URDIDORA # 01,Hilos sueltos,1,20261014
+URDIDORA # 02,Interferencia entre hilos,34,20261014
+URDIDORA # 02,Moña,12,20261014
+URDIDORA # 02,Queso picado externo,10,20261014
+URDIDORA # 02,Hilos sueltos,17,20261014
+URDIDORA # 03,Interferencia entre hilos,9,20261014
+URDIDORA # 03,Interferencia manipulacion,2,20261014
+URDIDORA # 03,Queso picado interno (OE),2,20261014
+URDIDORA # 03,Moña,1,20261014
+URDIDORA # 03,Hilos sueltos,10,20261014
