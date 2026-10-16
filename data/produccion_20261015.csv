@@ -1,0 +1,7 @@
+orden,id,nro,inicio,maquina,hora_inicio,turno,persona,estilo,hilo,titulo,lote,nro_madeja,metros_a_urdir,metros_producidos,fecha_fin,fecha_fin_hora,fecha,roturas,IRMM
+1,532735,532735,,URDIDORA # 01,,,"Hector, MONTILLA",BULLDENIM 11,,8 Urd,2091,4,,0,,,20261015,0,0.000
+2,532733,532733,,URDIDORA # 01,,,"Hector, MONTILLA",AURORA BLACK,,8 Urd,2090,12,,8000,,,20261015,0,0.000
+3,532736,532736,,URDIDORA # 01,,,"Hector, MONTILLA",BULLDENIM 11,,8 Urd,2091,5,,0,,,20261015,0,0.000
+4,532737,532737,,URDIDORA # 01,,,"Hector, MONTILLA",BULLDENIM 11,,8 Urd,2091,6,,0,,,20261015,0,0.000
+5,532738,532738,,URDIDORA # 01,,,"Hector, MONTILLA",BULLDENIM 11,,8 Urd,2091,7,,0,,,20261015,0,0.000
+6,532734,532734,,URDIDORA # 01,,,"Hector, MONTILLA",BULLDENIM 11,,8 Urd,2091,3,,0,,,20261015,0,0.000
