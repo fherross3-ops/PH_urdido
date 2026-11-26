@@ -1,5 +1,5 @@
 """
-pipeline_unificado.py
+pipeline_unificado.py - CORREGIDO CON EXTRACCIÓN DE ROTURAS
 Un solo clic para: Extraer de SISGO + Convertir PDFs a CSVs en la carpeta data/
 """
 import os
@@ -25,13 +25,11 @@ if not USUARIO or not PASSWORD:
     print("❌ ERROR: Faltan credenciales. Revisa tu archivo .env")
     exit(1)
 
-# Fechas dinámicas: Primer día del mes actual hasta AYER
 hoy = datetime.now()
 ayer = hoy - timedelta(days=1)
 inicio_mes = ayer.replace(day=1)
 
 FECHA_INICIO = inicio_mes.strftime("%Y%m%d")
-FECHA_FIN = ayer.strftime("%Y%mDD") # Corregido a %Y%m%d
 FECHA_FIN = ayer.strftime("%Y%m%d")
 
 BASE_URL = "http://172.30.1.13/SISGO"
@@ -54,7 +52,7 @@ print(f"📁 Destino CSV finales: {DATA_SALIDA.resolve()}")
 print("="*60)
 
 # ==========================================
-# 2. FUNCIONES DE EXTRACCIÓN (De tu script original)
+# 2. FUNCIONES AUXILIARES
 # ==========================================
 def generar_fechas(inicio, fin):
     inicio_dt = datetime.strptime(inicio, "%Y%m%d")
@@ -66,6 +64,24 @@ def generar_fechas(inicio, fin):
         current += timedelta(days=1)
     return fechas
 
+def limpiar(valor):
+    return str(valor).replace('\n', ' ').strip() if valor is not None else ''
+
+def detectar_maquina(texto):
+    m = re.search(r'URDIDORA\s*#\s*(\d+)', texto)
+    return f'URDIDORA # {int(m.group(1)):02d}' if m else None
+
+def parsear_numero(s):
+    s = limpiar(s)
+    if not s: return 0.0
+    if ',' in s and '.' in s: s = s.replace('.', '').replace(',', '.')
+    elif ',' in s: s = s.replace(',', '.')
+    try: return float(s)
+    except ValueError: return 0.0
+
+# ==========================================
+# 3. EXTRACCIÓN DE DATOS DE SISGO
+# ==========================================
 def descargar_pdf(fecha, tipo_informe):
     urls = {
         'produccion': f"{BASE_URL}/produccion/urdido_informe_produccion.php?fecha={fecha}",
@@ -115,23 +131,8 @@ def extraer_urdido_csv(fecha):
         return []
 
 # ==========================================
-# 3. FUNCIONES DE CONVERSIÓN PDF A CSV (De tu script original)
+# 4. CONVERSIÓN DE PDFs A CSVs
 # ==========================================
-def limpiar(valor):
-    return str(valor).replace('\n', ' ').strip() if valor is not None else ''
-
-def detectar_maquina(texto):
-    m = re.search(r'URDIDORA\s*#\s*(\d+)', texto)
-    return f'URDIDORA # {int(m.group(1)):02d}' if m else None
-
-def parsear_numero(s):
-    s = limpiar(s)
-    if not s: return 0.0
-    if ',' in s and '.' in s: s = s.replace('.', '').replace(',', '.')
-    elif ',' in s: s = s.replace(',', '.')
-    try: return float(s)
-    except ValueError: return 0.0
-
 def extraer_y_guardar_produccion(pdf_path, fecha):
     filas = []
     maquina_actual = None
@@ -163,7 +164,6 @@ def extraer_y_guardar_produccion(pdf_path, fecha):
                             'maquina': maquina_actual or 'GLOBAL',
                         })
         
-        # Guardar CSV
         out = DATA_SALIDA / f'produccion_{fecha}.csv'
         cabecera = ['orden', 'id', 'nro', 'inicio', 'maquina', 'hora_inicio', 'turno', 'persona', 'estilo', 'hilo', 'titulo', 'lote', 'nro_madeja', 'metros_a_urdir', 'metros_producidos', 'fecha_fin', 'fecha_fin_hora', 'fecha', 'roturas', 'IRMM']
         with open(out, 'w', newline='', encoding='utf-8') as f:
@@ -174,6 +174,57 @@ def extraer_y_guardar_produccion(pdf_path, fecha):
         print(f"  ✅ produccion_{fecha}.csv ({len(filas)} filas)")
     except Exception as e:
         print(f"  ❌ Error procesando {pdf_path.name}: {e}")
+
+def extraer_y_guardar_roturas(pdf_path, fecha):
+    """Extrae las roturas por máquina del PDF de producción."""
+    roturas = []
+    maquina_actual = None
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for pagina in pdf.pages:
+                texto = pagina.extract_text() or ''
+                lineas = texto.split('\n')
+                modo_roturas = False
+                for linea in lineas:
+                    linea_limpia = linea.strip()
+                    if 'Roturas por Maquinas' in linea_limpia:
+                        modo_roturas = True
+                        continue
+                    if not modo_roturas:
+                        continue
+                    maq = detectar_maquina(linea_limpia)
+                    if maq:
+                        maquina_actual = maq
+                        continue
+                    if not linea_limpia or 'Item' in linea_limpia or 'Codigo' in linea_limpia:
+                        continue
+                    if 'Paro sin Roturas' in linea_limpia:
+                        continue
+                    m = re.match(
+                        r'^\s*(\d+)\s+(\d+)?\s*([A-Za-zÁÉÍÓÚáéíóúñÑüÜ()\s]+?)\s+(\d+)\s*$',
+                        linea_limpia
+                    )
+                    if m and maquina_actual:
+                        tipo = m.group(3).strip()
+                        cant = int(m.group(4))
+                        roturas.append({
+                            'maquina': maquina_actual,
+                            'tipo_rotura': tipo,
+                            'cantidad': cant,
+                        })
+        
+        out = DATA_SALIDA / f'roturas_{fecha}.csv'
+        with open(out, 'w', newline='', encoding='utf-8') as f:
+            w = csv.writer(f)
+            w.writerow(['maquina', 'tipo_rotura', 'cantidad', 'fecha'])
+            for r in roturas:
+                w.writerow([r['maquina'], r['tipo_rotura'], r['cantidad'], fecha])
+        if len(roturas) > 0:
+            print(f"  ✅ roturas_{fecha}.csv ({len(roturas)} filas)")
+        else:
+            print(f"  ⚠️ roturas_{fecha}.csv (0 filas - sin roturas detectadas)")
+    except Exception as e:
+        print(f"  ❌ Error extrayendo roturas de {pdf_path.name}: {e}")
 
 def extraer_y_guardar_tiempos(pdf_path, fecha):
     resultados = []
@@ -188,7 +239,6 @@ def extraer_y_guardar_tiempos(pdf_path, fecha):
                     if maq: 
                         maquina_actual = maq
                         continue
-                    
                     m = re.match(r'^\s*(\d+)\s+(\d+)\s+([A-Za-zÁÉÍÓÚáéíóúñÑüÜ().,\s\-]+?)\s+([\d.,]+)\s+([\d.,]+)\s*$', linea_limpia)
                     if m and maquina_actual:
                         resultados.append({
@@ -208,13 +258,12 @@ def extraer_y_guardar_tiempos(pdf_path, fecha):
         print(f"  ❌ Error procesando {pdf_path.name}: {e}")
 
 # ==========================================
-# 4. EJECUCIÓN DEL PIPELINE (EL FLUJO AUTOMÁTICO)
+# 5. EJECUCIÓN DEL PIPELINE
 # ==========================================
 def main():
     print("\n📥 PASO 1: Descargando datos de SISGO...")
     fechas = generar_fechas(FECHA_INICIO, FECHA_FIN)
     
-    # 4.1 Descargar CSV crudo (para tu histórico local)
     print("  • Descargando CSV crudo consolidado...")
     todos_datos = []
     for fecha in fechas:
@@ -231,7 +280,6 @@ def main():
             writer.writerows(todos_datos)
         print(f"  ✅ CSV crudo guardado en: {nombre_csv_crudo}")
 
-    # 4.2 Descargar PDFs
     print("  • Descargando PDFs...")
     informes = ['produccion', 'tiempos_perdidos', 'inventario']
     for tipo in informes:
@@ -246,12 +294,12 @@ def main():
     print("  ✅ Descarga de PDFs completada.")
 
     print("\n⚙️ PASO 2: Convirtiendo PDFs a CSVs finales...")
-    # NOTA: Leemos DIRECTAMENTE de la carpeta raw, eliminando el paso intermedio de copiar.
     carpeta_prod = CARPETA_RAW_ACTUAL / "pdfs_produccion"
     for pdf in sorted(carpeta_prod.glob('produccion_*.pdf')):
         fecha = re.search(r'(\d{8})', pdf.name).group(1)
         print(f"  📄 Procesando {pdf.name}...")
         extraer_y_guardar_produccion(pdf, fecha)
+        extraer_y_guardar_roturas(pdf, fecha)  # ← ¡AHORA SÍ SE EXTRAEN LAS ROTURAS!
 
     carpeta_tiempos = CARPETA_RAW_ACTUAL / "pdfs_tiempos_perdidos"
     for pdf in sorted(carpeta_tiempos.glob('tiempos_perdidos_*.pdf')):
@@ -262,7 +310,6 @@ def main():
     print("\n" + "="*60)
     print("✨ ¡PROCESO COMPLETADO CON ÉXITO!")
     print(f"📁 Los archivos CSV finales están listos en: {DATA_SALIDA.resolve()}")
-    print("👉 Ahora puedes subirlos manualmente a GitHub o hacer lo que necesites.")
     print("="*60)
 
 if __name__ == '__main__':
