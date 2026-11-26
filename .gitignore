@@ -1,0 +1,15 @@
+# ARCHIVOS PROHIBIDOS (Nunca se subirán a GitHub)
+bash_git.txt
+.env
+
+# Carpetas que no deben subirse
+data2/
+data/raw/
+data/historicos/
+PDFs/
+__pycache__/
+
+# Archivos basura o descargas viejas
+*.zip
+PH_urdido-main/
+netlify/

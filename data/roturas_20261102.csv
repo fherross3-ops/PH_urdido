@@ -1,0 +1,13 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 02,Interferencia entre hilos,10,20261102
+URDIDORA # 02,Interferencia manipulacion,2,20261102
+URDIDORA # 02,Queso picado interno (OE),1,20261102
+URDIDORA # 02,Hilos sueltos,5,20261102
+URDIDORA # 04,Interferencia manipulacion,7,20261102
+URDIDORA # 04,Queso picado externo,6,20261102
+URDIDORA # 04,Moña,5,20261102
+URDIDORA # 04,Interferencia entre hilos,5,20261102
+URDIDORA # 04,Cola o reserva,4,20261102
+URDIDORA # 04,interferencia queso caido,2,20261102
+URDIDORA # 04,Queso mal formado,1,20261102
+URDIDORA # 04,Hilos sueltos,11,20261102

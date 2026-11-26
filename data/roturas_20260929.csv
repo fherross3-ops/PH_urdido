@@ -1,0 +1,21 @@
+﻿maquina,tipo_rotura,cantidad,fecha
+GLOBAL,Interferencia entre hilos,4.0,20260929
+GLOBAL,Moña,2.0,20260929
+GLOBAL,Cola o reserva,1.0,20260929
+GLOBAL,Hilos sueltos,3.0,20260929
+GLOBAL,Interferencia entre hilos,22.0,20260929
+GLOBAL,Moña,17.0,20260929
+GLOBAL,Queso picado interno (OE),10.0,20260929
+GLOBAL,Queso picado externo,3.0,20260929
+GLOBAL,Interferencia manipulacion,1.0,20260929
+GLOBAL,Cola o reserva,1.0,20260929
+GLOBAL,Hilos sueltos,17.0,20260929
+GLOBAL,Moña,29.0,20260929
+GLOBAL,Cola o reserva,19.0,20260929
+GLOBAL,Interferencia entre hilos,14.0,20260929
+GLOBAL,Queso picado externo,7.0,20260929
+GLOBAL,Queso picado interno (OE),3.0,20260929
+GLOBAL,Interferencia manipulacion,2.0,20260929
+GLOBAL,Nudo flojo,1.0,20260929
+GLOBAL,Interferencia entre quesos,1.0,20260929
+GLOBAL,Hilos sueltos,17.0,20260929

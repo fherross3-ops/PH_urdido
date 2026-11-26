@@ -1,0 +1,7 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 02,Interferencia entre hilos,9,20261112
+URDIDORA # 02,Cola o reserva,4,20261112
+URDIDORA # 02,Interferencia manipulacion,3,20261112
+URDIDORA # 02,Moña,3,20261112
+URDIDORA # 02,Hilo debil,1,20261112
+URDIDORA # 02,Hilos sueltos,8,20261112

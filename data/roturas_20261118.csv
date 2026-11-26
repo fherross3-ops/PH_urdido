@@ -1,0 +1,9 @@
+maquina,tipo_rotura,cantidad,fecha
+URDIDORA # 01,Empalme (OE),34,20261118
+URDIDORA # 01,Moña,1,20261118
+URDIDORA # 01,Hilos sueltos,11,20261118
+URDIDORA # 04,Interferencia entre hilos,20,20261118
+URDIDORA # 04,Moña,15,20261118
+URDIDORA # 04,Interferencia entre quesos,6,20261118
+URDIDORA # 04,Queso picado externo,1,20261118
+URDIDORA # 04,Hilos sueltos,17,20261118
